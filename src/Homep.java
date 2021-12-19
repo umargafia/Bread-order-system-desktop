@@ -2,14 +2,17 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class Homepage2 extends JFrame implements ActionListener, ChangeListener {
+import static java.awt.Color.*;
 
+class Homepage2 extends JFrame implements ActionListener {
 
-        JButton manageButton = new JButton("Manage user");
+    DefaultTableModel model;
+    JButton manageButton = new JButton("Manage user");
         JButton logoutButton = new JButton("Logout");
 
         ImageIcon breadIcon1 = new ImageIcon("bread/1.png");
@@ -34,10 +37,10 @@ class Homepage2 extends JFrame implements ActionListener, ChangeListener {
         JButton imageButton9 = new JButton(breadIcon9);
 
 
-        JTextField nameTextField = new JTextField();
-        JTextField priceTextField = new JTextField();
-        JTextField quantityTextField = new JTextField();
-        JTextField totalPriceTextField = new JTextField();
+        JLabel nameTextField = new JLabel();
+         JLabel  priceTextField = new  JLabel ();
+         JLabel  quantityTextField = new JLabel ();
+         JLabel  totalPriceTextField = new  JLabel ();
 
 
         JComboBox comboBox ;
@@ -49,7 +52,7 @@ class Homepage2 extends JFrame implements ActionListener, ChangeListener {
 
     //payment component
     JLabel totalPriceLabel = new JLabel("Total Price: ");
-    JLabel totalPriceText = new JLabel("$0.00");
+    JLabel totalPriceText = new JLabel("0.00");
     JLabel amount_pay = new JLabel("Amount pay: ");
     JTextField amountPayTextField = new JTextField();
     JLabel changeLabel = new JLabel("Change: ");
@@ -57,7 +60,9 @@ class Homepage2 extends JFrame implements ActionListener, ChangeListener {
     JButton payButton= new JButton("Pay");
 
 
-    Object [][] objects= {};
+    JButton resetButton = new JButton("Reset");
+    JButton printButton = new JButton("Print");
+    JButton exitButton = new JButton("Exit");
 
     Homepage2(){
 
@@ -94,7 +99,7 @@ class Homepage2 extends JFrame implements ActionListener, ChangeListener {
             //bread text
             JLabel breadText = new JLabel("Bread");
             breadText.setBounds(170,255,230,75);
-            breadText.setForeground(Color.white);
+            breadText.setForeground(white);
             breadText.setFont(new Font("Rampart one", Font.BOLD, 60));
             panel1.add(breadText);
 
@@ -109,23 +114,23 @@ class Homepage2 extends JFrame implements ActionListener, ChangeListener {
 
             //bread images
                 breadPanel.add(imageButton1);
-            imageButton1.setBackground(Color.white);
+            imageButton1.setBackground(white);
             breadPanel.add(imageButton2);
-        imageButton2.setBackground(Color.white);
+        imageButton2.setBackground(white);
                 breadPanel.add(imageButton3);
-        imageButton3.setBackground(Color.white);
+        imageButton3.setBackground(white);
                 breadPanel.add(imageButton4);
-        imageButton4.setBackground(Color.white);
+        imageButton4.setBackground(white);
                 breadPanel.add(imageButton5);
-        imageButton5.setBackground(Color.white);
+        imageButton5.setBackground(white);
                 breadPanel.add(imageButton6);
-        imageButton6.setBackground(Color.white);
+        imageButton6.setBackground(white);
                 breadPanel.add(imageButton7);
-        imageButton7.setBackground(Color.white);
+        imageButton7.setBackground(white);
                 breadPanel.add(imageButton8);
-        imageButton8.setBackground(Color.white);
+        imageButton8.setBackground(white);
                 breadPanel.add(imageButton9);
-        imageButton9.setBackground(Color.white);
+        imageButton9.setBackground(white);
 
         imageButton1.setFocusable(false);
         imageButton2.setFocusable(false);
@@ -163,7 +168,7 @@ class Homepage2 extends JFrame implements ActionListener, ChangeListener {
         JPanel productDetail = new JPanel();
         productDetail.setBounds(20,20,650,300);
         productDetail.setLayout(null);
-        productDetail.setForeground(Color.white);
+        productDetail.setForeground(white);
         productDetail.setBackground(new Color(0xFFFFFF));
 
         Border innerBorder = BorderFactory.createTitledBorder("Product Details");
@@ -173,7 +178,7 @@ class Homepage2 extends JFrame implements ActionListener, ChangeListener {
 
         JLabel productName =new JLabel("Product name: ");
         JLabel price =new JLabel("Price: ");
-        JLabel quantity =new JLabel("Quantity: ");
+        JLabel quantity =new JLabel("Items selected: ");
         JLabel totalPrice =new JLabel("Total Price: ");
 
         //productName text
@@ -184,7 +189,7 @@ class Homepage2 extends JFrame implements ActionListener, ChangeListener {
 
         // name textField
         productDetail.add(nameTextField);
-        nameTextField.setBounds(180,30,220,40);
+        nameTextField.setBounds(180,30,290,40);
         nameTextField.setFont(new Font("Tahoma",Font.BOLD,25));
 
 
@@ -200,7 +205,7 @@ class Homepage2 extends JFrame implements ActionListener, ChangeListener {
         priceTextField.setFont(new Font("Tahoma",Font.BOLD,25));
 
         //quantity text
-        quantity.setBounds(20,164,150,25);
+        quantity.setBounds(20,164,170,25);
         productDetail.add(quantity);
         quantity.setFont(new Font("Tahoma",Font.PLAIN,20));
         quantity.setForeground(color);
@@ -230,14 +235,14 @@ class Homepage2 extends JFrame implements ActionListener, ChangeListener {
         addToCartButton.setBounds(430,210,200,60);
         addToCartButton.setBackground(color);
         addToCartButton.setFont(new Font("Tahoma",Font.BOLD,20));
-        addToCartButton.setForeground(Color.white);
+        addToCartButton.setForeground(white);
         addToCartButton.setFocusable(false);
 
         //payment panel
        JPanel paymentPanel = new JPanel();
        paymentPanel.setBounds(20,350,650,400);
         paymentPanel.setLayout(null);
-        paymentPanel.setForeground(Color.white);
+        paymentPanel.setForeground(white);
         paymentPanel.setBackground(new Color(0xFFFFFF));
         Border paymentBorder = BorderFactory.createTitledBorder("Payment");
         paymentPanel.setBorder(BorderFactory.createCompoundBorder(outerBorder,paymentBorder));
@@ -294,26 +299,43 @@ class Homepage2 extends JFrame implements ActionListener, ChangeListener {
        paymentPanel.add(comboBox);
 
        //pay Button
-        payButton.setBounds(20,140,600,40);
+        payButton.setBounds(20,150,600,40);
         payButton.setFocusable(false);
         payButton.setBackground(color);
         payButton.setFont(new Font("Tahoma",Font.BOLD,20));
-        payButton.setForeground(Color.white);
+        payButton.setForeground(white);
         payButton.addActionListener(this);
         paymentPanel.add(payButton);
 
-        // Table
-        String [] columnNames = {"Product Id","Bread name", "Price"};
 
 
+        //reset button
+        resetButton.setBounds(20,210,600,40);
+        resetButton.setFocusable(false);
+        resetButton.setBackground(color);
+        resetButton.setFont(new Font("Tahoma",Font.BOLD,20));
+        resetButton.setForeground(white);
+        resetButton.addActionListener(this);
+        paymentPanel.add(resetButton);
 
-        JTable table = new JTable(objects,columnNames);
-        table.setPreferredSize(new Dimension(610,300));
-        table.setFillsViewportHeight(true);
+        //print button
+        printButton.setBounds(20,270,600,40);
+        printButton.setFocusable(false);
+        printButton.setBackground(color);
+        printButton.setFont(new Font("Tahoma",Font.BOLD,20));
+        printButton.setForeground(white);
+        printButton.addActionListener(this);
+        paymentPanel.add(printButton);
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(15,200,610,180);
-        paymentPanel.add(scrollPane);
+        //exit button
+        exitButton.setBounds(20,330,600,40);
+        exitButton.setFocusable(false);
+        exitButton.setBackground(color);
+        exitButton.setFont(new Font("Tahoma",Font.BOLD,20));
+        exitButton.setForeground(white);
+        exitButton.addActionListener(this);
+        paymentPanel.add(exitButton);
+
 
 
         //frame
@@ -321,64 +343,150 @@ class Homepage2 extends JFrame implements ActionListener, ChangeListener {
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setLayout(null);
       setResizable(false);
-      setLocationRelativeTo(null);
-      setSize(1300,800);
-      setVisible(true);
+    setBounds(100,30,1300,800);
+    setVisible(true);
 
     }
+private JFrame frame;
     int i = 1;
     int money = 0;
     int j = 0;
     @Override
     public void actionPerformed(ActionEvent e) {
-            if(e.getSource()== logoutButton){
-                dispose();
-                new Login( new IDAndPassword().getInfo());
+        if (e.getSource() == logoutButton) {
+            dispose();
+            new Login(new IDAndPassword().getInfo());
+        }
+
+
+        if (e.getSource() == imageButton1) {
+            nameTextField.setText("Plain bread");
+            int price = money += 100;
+            priceTextField.setText("$" + price);
+            quantityTextField.setText(String.valueOf(i++));
+            totalPriceTextField.setText(String.valueOf( price));
+
+
+        }
+        if (e.getSource() == imageButton2) {
+            nameTextField.setText("Brioche Bread");
+            int price = money += 1100;
+            priceTextField.setText("$" + price);
+            quantityTextField.setText(String.valueOf(i++));
+            totalPriceTextField.setText(String.valueOf( price));
+        }
+        if (e.getSource() == imageButton3) {
+            nameTextField.setText("Coconut Bread");
+            int price = money += 300;
+            priceTextField.setText("$" + price);
+            quantityTextField.setText(String.valueOf(i++));
+            totalPriceTextField.setText(String.valueOf(j + price));
+        }
+        if (e.getSource() == imageButton4) {
+            nameTextField.setText("Baguette");
+            int price = money += 500;
+            priceTextField.setText("$" + price);
+            quantityTextField.setText(String.valueOf(i++));
+            totalPriceTextField.setText(String.valueOf(j + price));
+        }
+        if (e.getSource() == imageButton5) {
+            nameTextField.setText("Multigrain Bread");
+            int price = money += 100;
+            priceTextField.setText("$" + price);
+            quantityTextField.setText(String.valueOf(i++));
+            totalPriceTextField.setText(String.valueOf(j + price));
+        }
+        if (e.getSource() == imageButton6) {
+            nameTextField.setText("Ciabatta Bread");
+            int price = money += 200;
+            priceTextField.setText("$" + price);
+            quantityTextField.setText(String.valueOf(i++));
+            totalPriceTextField.setText(String.valueOf(j + price));
+        }
+        if (e.getSource() == imageButton7) {
+            nameTextField.setText("Whole Wheat Bread");
+            int price = money += 700;
+            priceTextField.setText("$" + price);
+            quantityTextField.setText(String.valueOf(i++));
+            totalPriceTextField.setText(String.valueOf(j + price));
+        }
+        if (e.getSource() == imageButton8) {
+            nameTextField.setText("Soda Bread");
+            int price = money += 100;
+            priceTextField.setText("$" + price);
+            quantityTextField.setText(String.valueOf(i++));
+            totalPriceTextField.setText(String.valueOf(j + price));
+        }
+        if (e.getSource() == imageButton9) {
+            nameTextField.setText("Normal sliced Bread");
+            int price = money += 600;
+            priceTextField.setText("$" + price);
+            quantityTextField.setText(String.valueOf(i++));
+            totalPriceTextField.setText(String.valueOf(j + price));
+        }
+
+
+        if (e.getSource() == addToCartButton) {
+
+            totalPriceText.setText(String.valueOf(totalPriceTextField.getText()));
+
+
+            nameTextField.setText("");
+            priceTextField.setText("");
+            quantityTextField.setText("");
+            totalPriceTextField.setText("");
+
+            i = 1;
+            money = 0;
+            j = 0;
+        }
+        if (e.getSource() == payButton) {
+            try {
+                if(totalPriceText.getText().isEmpty() |totalPriceText.getText()=="0.00"){
+                    JOptionPane.showMessageDialog(null,"Total price cannot be zero","ERROR PAYMENT",JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    int pMethod = comboBox.getSelectedIndex();
+                    if (amountPayTextField.getText().isEmpty() ) {
+
+                        if (pMethod == 1) {
+                            new CardPayment();
+                        }
+                    } else {
+                        if(pMethod ==0){
+                            int totalPay = Integer.parseInt(totalPriceText.getText());
+                            int amountPay = Integer.parseInt(amountPayTextField.getText());
+                            if (totalPay <= amountPay) {
+                                int change = amountPay - totalPay;
+                                changeText.setText(String.valueOf(change));
+                            }else {
+                                JOptionPane.showMessageDialog(null,"Cash paid cannot be smaller than total amount","Insufficient cash",JOptionPane.ERROR_MESSAGE);
                             }
-
-            if(
-                    e.getSource()== imageButton1 |
-                    e.getSource()==imageButton2  |
-                    e.getSource()==imageButton3  |
-                    e.getSource()==imageButton4  |
-                    e.getSource()==imageButton5  |
-                    e.getSource()==imageButton6  |
-                    e.getSource()==imageButton7  |
-                    e.getSource()==imageButton8  |
-                    e.getSource()==imageButton9
-            ){
-                nameTextField.setText("Bread name");
-                int price = money+=100;
-                priceTextField.setText("$"+"100");
-                quantityTextField.setText(String.valueOf(i++));
-                totalPriceTextField.setText("$"+(j+price));
-
+                        }
+                    }
+                }
+            }catch (Exception exception){
+                JOptionPane.showMessageDialog(null,exception,"ERROR",JOptionPane.ERROR_MESSAGE);
             }
-            if (e.getSource()==addToCartButton){
 
-                totalPriceText.setText(totalPriceTextField.getText());
-
-
+        }
+            if (e.getSource()==resetButton){
                 nameTextField.setText("");
                 priceTextField.setText("");
                 quantityTextField.setText("");
                 totalPriceTextField.setText("");
-
-                i =1;
-                money =0;
-                j=0;
-            }if(e.getSource()==payButton){
-            int pMethod = comboBox.getSelectedIndex();
-            if (pMethod==1){
-                    new CardPayment();
-//                System.out.println("pay");
+                totalPriceText.setText("");
+                amountPayTextField.setText("");
+                changeText.setText("");
             }
 
+            if(e.getSource()==exitButton){
+
+                if(  JOptionPane.showConfirmDialog(frame,"Are you sure you want to exit","Exit",JOptionPane.YES_NO_OPTION) ==JOptionPane.YES_OPTION){
+                    System.exit(0);
+                }
+            }if (e.getSource() == printButton){
+            JOptionPane.showMessageDialog(null,"Printed successfully","print",JOptionPane.INFORMATION_MESSAGE);
         }
-    }
-
-    @Override
-    public void stateChanged(ChangeEvent e) {
-
     }
 }
