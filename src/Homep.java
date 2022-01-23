@@ -1,13 +1,13 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static java.awt.Color.*;
+
 
 class Homepage2 extends JFrame implements ActionListener {
 
@@ -85,6 +85,13 @@ class Homepage2 extends JFrame implements ActionListener {
             manageButton.setFocusable(false);
             manageButton.setFont(new Font("Tahoma", Font.BOLD,20));
 //            manageButton.setBackground(Color.white);
+            manageButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    new AddUser();
+
+                }
+            });
             panel1.add(manageButton);
 
 
@@ -351,6 +358,7 @@ private JFrame frame;
     int i = 1;
     int money = 0;
     int j = 0;
+    int a ;
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == logoutButton) {
@@ -365,6 +373,7 @@ private JFrame frame;
             priceTextField.setText("$" + price);
             quantityTextField.setText(String.valueOf(i++));
             totalPriceTextField.setText(String.valueOf( price));
+            price =a;
 
 
         }
@@ -427,7 +436,7 @@ private JFrame frame;
 
 
         if (e.getSource() == addToCartButton) {
-
+//    new Homepage2();
             totalPriceText.setText(String.valueOf(totalPriceTextField.getText()));
 
 
@@ -475,7 +484,7 @@ private JFrame frame;
                 priceTextField.setText("");
                 quantityTextField.setText("");
                 totalPriceTextField.setText("");
-                totalPriceText.setText("");
+                totalPriceText.setText("0.00");
                 amountPayTextField.setText("");
                 changeText.setText("");
             }
@@ -487,6 +496,10 @@ private JFrame frame;
                 }
             }if (e.getSource() == printButton){
             JOptionPane.showMessageDialog(null,"Printed successfully","print",JOptionPane.INFORMATION_MESSAGE);
+        }if  (e.getSource()==manageButton){
+                    
+                             // new AddUser().setVisible(true);
+   
         }
     }
 }

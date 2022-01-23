@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 
@@ -21,7 +24,21 @@ public class Login extends JFrame implements ActionListener {
     JButton loginButton = new JButton("Login");
     JPanel panel = new JPanel();
 
-    JButton create_account = new JButton("Create account");
+    JButton create_account = new JButton("Cancel");
+
+
+    String url = "jdbc:mysql://localhost:3306/groupAssigement";
+
+    Connection connection;
+
+    {
+        try {
+            connection = DriverManager.getConnection(url, "root", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     HashMap<String,String> loginInfo;
 
@@ -132,8 +149,8 @@ public class Login extends JFrame implements ActionListener {
             }
 
             if(e.getSource()==create_account){
-                dispose();
-                new Signup();
+
+            System.exit(0);
             }
     }
 }
